@@ -4,7 +4,7 @@ var env = process.env.NODE_ENV || 'development';
 
 if (env === 'production'){
 	sequelize = new Sequelize(prcess.env.DATABASE_URL, {
-		dialect: 'postrges'
+		'dialect': 'postrges'
 	});
 } else {
  	sequelize = new Sequelize(undefined, undefined, undefined, {
