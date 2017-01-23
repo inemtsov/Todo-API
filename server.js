@@ -2,17 +2,20 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 var db = require('./db.js');
+var middleware = require('./middleware.js')(db);
+
 var bcrypt = require('bcryptjs');
 var app = express();
 var PORT = process.env.PORT || 3000;
 var todos = [];
 var todoNextId = 1;
+
 app.use(bodyParser.json());
 app.get('/', function(req, res) {
 	res.send('Todo API root');
 });
 
-app.get('/todos', function(req, res) {
+app.get('/todos', middleware.requireAuthentication, function(req, res) {
 	var query = req.query;
 	var where = {};
 
